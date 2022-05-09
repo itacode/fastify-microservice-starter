@@ -1,12 +1,9 @@
-import { loadEnv } from './common/env';
-import Fastify from 'fastify';
+import fastify from 'fastify';
 import { app as appService } from './app';
 import closeWithGrace = require('close-with-grace');
 
-loadEnv();
-
 // Instantiate Fastify with some config.
-const app = Fastify({
+const app = fastify({
   logger: {
     level: process.env.LOGGER_LEVEL,
   },
@@ -32,9 +29,13 @@ app.addHook('onClose', async (instance, done) => {
 });
 
 // Start listening.
-app.listen(process.env.APP_PORT || 3000, process.env.APP_ADDRESS || '', (err) => {
-  if (err) {
-    app.log.error(err);
-    process.exit(1);
+app.listen(
+  process.env.APP_PORT || 3000,
+  process.env.APP_ADDRESS || '',
+  (err) => {
+    if (err) {
+      app.log.error(err);
+      process.exit(1);
+    }
   }
-});
+);

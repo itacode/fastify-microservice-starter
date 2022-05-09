@@ -1,6 +1,11 @@
-import { join } from 'path';
-import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
+import autoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
+import fastifyHelmet from '@fastify/helmet';
+import fastifyMultipart from '@fastify/multipart';
 import { FastifyPluginAsync } from 'fastify';
+import { join } from 'path';
+import { loadEnv } from './common/env';
+
+loadEnv();
 
 export type AppOptions = {
   // Place your custom options for app below here.
@@ -12,20 +17,24 @@ const app: FastifyPluginAsync<AppOptions> = async (
 ): Promise<void> => {
   // Place here your custom code!
 
+  // Set basic security headers.
+  fastify.register(fastifyHelmet);
+  // Plugin to parse the multipart content-type.
+  fastify.register(fastifyMultipart);
+
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
   // through your application
-  void fastify.register(AutoLoad, {
+  void fastify.register(autoLoad, {
     dir: join(__dirname, 'plugins'),
     options: opts,
   });
 
-  // This loads all plugins defined in routes
-  // define your routes in one of these
-  void fastify.register(AutoLoad, {
-    dir: join(__dirname, 'routes'),
+  // This loads all plugins defined in api
+  void fastify.register(autoLoad, {
+    dir: join(__dirname, 'api'),
     options: opts,
   });
 };
