@@ -22,7 +22,7 @@ For example if you want `.env.production` to be loaded, you need to set `PLATFOR
 ### Environment Variables
 You can specify env variables by placing the following files in your project root:
 
-```shell
+```
 .env.[platform].local # only loaded in specified platform, ignored by git
 .env.[platform]       # only loaded in specified platform
 .env.local            # loaded in all cases but not test, ignored by git
