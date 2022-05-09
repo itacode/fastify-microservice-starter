@@ -10,10 +10,10 @@ afterAll(async () => {
   await app.close();
 });
 
-test('example is loaded', async () => {
+test('health_check is loaded', async () => {
   const res = await app.inject({
-    url: '/example',
+    url: '/health_check',
   });
 
-  expect(res.payload).toBe('this is an example');
+  expect(res.payload).toBe('OK');
 });
