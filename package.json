@@ -8,7 +8,7 @@
     "test": "jest --coverage",
     "dev": "cross-env PLATFORM=development nodemon src/server.ts | pino-pretty",
     "build": "rimraf ./dist && tsc",
-    "start": "cross-env PLATFORM=development node dist/server.js"
+    "start": "cross-env PLATFORM=production node dist/server.js"
   },
   "keywords": [],
   "author": "",
