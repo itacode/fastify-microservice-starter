@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { build } from '../helper';
+import { build } from '../../helper';
 
 let app: FastifyInstance;
 beforeAll(async () => {
@@ -10,9 +10,9 @@ afterAll(async () => {
   await app.close();
 });
 
-test('health_check is loaded', async () => {
+test('health is loaded', async () => {
   const res = await app.inject({
-    url: '/health_check',
+    url: '/health',
   });
 
   expect(res.payload).toBe('OK');

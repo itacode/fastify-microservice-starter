@@ -3,6 +3,7 @@ import fastifyHelmet from '@fastify/helmet';
 import fastifyMultipart from '@fastify/multipart';
 import { FastifyPluginAsync } from 'fastify';
 import { join } from 'path';
+import apiRootRoutes from './api/root.routes';
 import { loadEnv } from './common/env';
 
 loadEnv();
@@ -22,8 +23,6 @@ const app: FastifyPluginAsync<AppOptions> = async (
   // Plugin to parse the multipart content-type.
   fastify.register(fastifyMultipart);
 
-  // Do not touch the following lines
-
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
   // through your application
@@ -32,11 +31,8 @@ const app: FastifyPluginAsync<AppOptions> = async (
     options: opts,
   });
 
-  // This loads all plugins defined in api
-  void fastify.register(autoLoad, {
-    dir: join(__dirname, 'api'),
-    options: opts,
-  });
+  // API routes
+  fastify.register(apiRootRoutes);
 };
 
 export default app;
