@@ -5,6 +5,7 @@ import { FastifyPluginAsync } from 'fastify';
 import { join } from 'path';
 import apiRootRoutes from './api/root.routes';
 import { loadEnv } from './common/env';
+import fastifyCors from '@fastify/cors';
 
 loadEnv();
 
@@ -16,10 +17,10 @@ const app: FastifyPluginAsync<AppOptions> = async (
   fastify,
   opts
 ): Promise<void> => {
-  // Place here your custom code!
-
   // Set basic security headers.
   fastify.register(fastifyHelmet);
+
+  fastify.register(fastifyCors);
   // Plugin to parse the multipart content-type.
   fastify.register(fastifyMultipart);
 
