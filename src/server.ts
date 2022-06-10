@@ -30,8 +30,10 @@ app.addHook('onClose', async (instance, done) => {
 
 // Start listening.
 app.listen(
-  process.env.APP_PORT || 3000,
-  process.env.APP_ADDRESS || '',
+  {
+    port: Number(process.env.APP_PORT) || 3000,
+    host: process.env.APP_HOST || 'localhost',
+  },
   (err) => {
     if (err) {
       app.log.error(err);

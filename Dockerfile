@@ -7,7 +7,7 @@ RUN npm install -g npm
 RUN npm ci
 RUN npm run build
 
-ENV APP_ADDRESS=0.0.0
+ENV APP_HOST=0.0.0.0
 
 EXPOSE 3000
 
