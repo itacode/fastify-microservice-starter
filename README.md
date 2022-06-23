@@ -42,7 +42,7 @@ npm install
 
 ## Development
 
-Start the development server with automatic reload.
+Start the development server with automatic reload
 
 ```shell
 npm run dev
