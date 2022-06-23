@@ -5,8 +5,6 @@ It's a boilerplate to start developing a microservice with Fastify.
 - Fastify
 - TypeScript
 - OpenAPI validator
-- Cross-env
-- Dotenv
 - Multiple .env files
 - Nodemon
 - ESLint
