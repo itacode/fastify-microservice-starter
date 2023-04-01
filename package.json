@@ -4,9 +4,9 @@
   "description": "Boilerplate to start developing a microservice with Fastify.",
   "main": "src/server.ts",
   "scripts": {
-    "lint": "eslint ./src/ --ext .js,.jsx,.ts,.tsx",
-    "test": "jest --coverage",
     "dev": "cross-env PLATFORM=development nodemon src/server.ts | pino-pretty",
+    "test": "jest --coverage",
+    "lint": "eslint ./src/ --ext .js,.jsx,.ts,.tsx",
     "build": "rimraf ./dist && tsc",
     "start": "cross-env PLATFORM=production node dist/server.js"
   },
@@ -15,12 +15,12 @@
   "license": "MIT",
   "dependencies": {
     "@fastify/autoload": "^5.7.1",
-    "@fastify/cors": "^8.2.0",
+    "@fastify/cors": "^8.2.1",
     "@fastify/helmet": "^10.1.0",
     "@fastify/sensible": "^5.2.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
-    "fastify": "^4.13.0",
+    "fastify": "^4.15.0",
     "fastify-cli": "^5.7.1",
     "fastify-multer": "^2.0.3",
     "fastify-plugin": "^4.5.0",
@@ -28,19 +28,19 @@
     "uri-js": "^4.4.1"
   },
   "devDependencies": {
-    "@types/jest": "^29.4.0",
-    "@types/node": "^18.14.0",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
-    "@typescript-eslint/parser": "^5.52.0",
-    "eslint": "^8.34.0",
-    "eslint-config-prettier": "^8.6.0",
-    "jest": "^29.4.3",
-    "nodemon": "^2.0.20",
-    "pino-pretty": "^9.3.0",
-    "prettier": "^2.8.4",
-    "rimraf": "^4.1.2",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "pino-pretty": "^10.0.0",
+    "prettier": "^2.8.7",
+    "rimraf": "^4.4.1",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.3"
   }
 }
