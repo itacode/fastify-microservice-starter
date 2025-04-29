@@ -11,9 +11,7 @@ afterAll(async () => {
 });
 
 test('health is loaded', async () => {
-  const res = await app.inject({
-    url: '/health',
-  });
+  const res = await app.inject({ url: '/health' });
 
   expect(res.payload).toBe('OK');
 });

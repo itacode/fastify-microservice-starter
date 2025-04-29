@@ -11,8 +11,6 @@ afterAll(async () => {
 });
 
 test('default root route', async () => {
-  const res = await app.inject({
-    url: '/',
-  });
+  const res = await app.inject({ url: '/' });
   expect(JSON.parse(res.payload)).toEqual({ root: true });
 });

@@ -1,5 +1,5 @@
-import path from 'path';
 import dotenv from 'dotenv';
+import path from 'path';
 
 /**
  * Load environment variables from .env* files
@@ -12,17 +12,11 @@ function loadEnv() {
     appEnv = 'production';
   }
 
-  dotenv.config({
-    path: path.resolve(process.cwd(), `.env.${appEnv}.local`),
-  });
+  dotenv.config({ path: path.resolve(process.cwd(), `.env.${appEnv}.local`) });
   if (appEnv != 'test') {
-    dotenv.config({
-      path: path.resolve(process.cwd(), '.env.local'),
-    });
+    dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
   }
-  dotenv.config({
-    path: path.resolve(process.cwd(), `.env.${appEnv}`),
-  });
+  dotenv.config({ path: path.resolve(process.cwd(), `.env.${appEnv}`) });
 
   // The Original .env
   dotenv.config();

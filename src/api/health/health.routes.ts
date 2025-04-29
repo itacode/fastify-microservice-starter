@@ -5,13 +5,12 @@ const health: FastifyPluginAsync = async (fastify): Promise<void> => {
     return 'OK';
   });
 
-  fastify.get<{
-    Params: {
-      int: number;
-    };
-  }>('/health/validator/:int', async function (request) {
-    return request.params.int;
-  });
+  fastify.get<{ Params: { int: number } }>(
+    '/health/validator/:int',
+    async function (request) {
+      return request.params.int;
+    }
+  );
 };
 
 export default health;

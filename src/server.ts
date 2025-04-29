@@ -2,11 +2,7 @@ import fastify from 'fastify';
 import { app as appService } from './app';
 
 // Instantiate Fastify with some config.
-const app = fastify({
-  logger: {
-    level: process.env.LOGGER_LEVEL,
-  },
-});
+const app = fastify({ logger: { level: process.env.LOGGER_LEVEL } });
 
 // Register your application as a normal plugin.
 app.register(appService);

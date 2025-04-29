@@ -38,11 +38,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
   openapiValidator.init('src/openapi/my_service.oas.yml', {
     framework: 'fastify',
   });
-  fastify.register(
-    openapiValidator.validate({
-      skiplist: [],
-    })
-  );
+  fastify.register(openapiValidator.validate({ skiplist: [] }));
   fastify.setErrorHandler(async (err, req, reply) => {
     if (err instanceof openapiValidator.InputValidationError) {
       return reply.status(400).send({ more_info: JSON.stringify(err.errors) });

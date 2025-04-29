@@ -23,4 +23,4 @@ async function build() {
   return app;
 }
 
-export { config, build };
+export { build, config };

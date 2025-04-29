@@ -1,4 +1,1 @@
-{
-  "watch": ["src", ".env"],
-  "ext": "ts,js,json,yaml,yml"
-}
+{ "watch": ["src", ".env"], "ext": "ts,js,json,yaml,yml" }
