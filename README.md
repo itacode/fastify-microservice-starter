@@ -63,11 +63,11 @@ npm start
 Start
 
 ```shell
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 Stop
 
 ```shell
-docker-compose down
+docker compose down
 ```
