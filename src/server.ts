@@ -18,5 +18,5 @@ app.listen(
       app.log.error(err);
       process.exit(1);
     }
-  }
+  },
 );

@@ -9,7 +9,7 @@ const health: FastifyPluginAsync = async (fastify): Promise<void> => {
     '/health/validator/:int',
     async function (request) {
       return request.params.int;
-    }
+    },
   );
 };
 
