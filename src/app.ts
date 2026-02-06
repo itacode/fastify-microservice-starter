@@ -1,9 +1,8 @@
 import autoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
 import fastifyCors from '@fastify/cors';
 import fastifyHelmet from '@fastify/helmet';
-import { FastifyPluginAsync } from 'fastify';
-import multer from 'fastify-multer';
-import openapiValidator from 'openapi-validator-middleware';
+import { FastifyPluginAsync, FastifyError } from 'fastify';
+import multipart from '@fastify/multipart';
 import { join } from 'path';
 import apiRootRoutes from './api/root.routes';
 import { loadEnv } from './common/env';
@@ -16,16 +15,16 @@ export type AppOptions = {
 
 const app: FastifyPluginAsync<AppOptions> = async (
   fastify,
-  opts
+  opts,
 ): Promise<void> => {
   // Set basic security headers.
   fastify.register(fastifyHelmet);
 
   fastify.register(fastifyCors);
-  // Plugin to parse the multipart content-type.
-  // Use multer instead of @fastify/multipart,
-  // which causes openapi-validator-middleware `TypeError: files.push is not a function`
-  fastify.register(multer.contentParser);
+
+  // Register @fastify/multipart with attachFieldsToBody: true
+  // This parses files and puts them in req.body
+  fastify.register(multipart, { attachFieldsToBody: true });
 
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
@@ -35,18 +34,27 @@ const app: FastifyPluginAsync<AppOptions> = async (
     options: opts,
   });
 
-  openapiValidator.init('src/openapi/my_service.oas.yml', {
-    framework: 'fastify',
-  });
-  fastify.register(openapiValidator.validate({ skiplist: [] }));
-  fastify.setErrorHandler(async (err, req, reply) => {
-    if (err instanceof openapiValidator.InputValidationError) {
-      return reply.status(400).send({ more_info: JSON.stringify(err.errors) });
-    }
-    fastify.log.error(err);
+  fastify.setErrorHandler((err: FastifyError, req, reply) => {
+    const statusCode = err.statusCode || 500;
+    const isDevelopment = process.env.NODE_ENV === 'development';
 
-    reply.status(500);
-    reply.send();
+    // Log 5xx errors as 'error' and 4xx as 'info' to reduce noise
+    if (statusCode >= 500) {
+      req.log.error(err);
+    } else {
+      req.log.info(err);
+    }
+
+    reply.status(statusCode).send({
+      statusCode,
+      error: err.name,
+      message:
+        statusCode === 500 && !isDevelopment
+          ? 'Internal Server Error'
+          : err.message,
+      ...(err.validation && { validation: err.validation }),
+      ...(isDevelopment && { stack: err.stack }),
+    });
   });
 
   // API routes
