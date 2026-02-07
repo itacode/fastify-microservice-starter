@@ -4,13 +4,13 @@
   "description": "Boilerplate to start developing a microservice with Fastify.",
   "main": "src/server.ts",
   "scripts": {
-    "dev": "cross-env PLATFORM=development node --watch --watch-path=src --import tsx src/server.ts | pino-pretty",
+    "dev": "cross-env PLATFORM=development node --inspect --watch --watch-path=src --import tsx src/server.ts | pino-pretty",
+    "start": "cross-env NODE_ENV=production PLATFORM=production node --enable-source-maps dist/server.js",
+    "build": "node -e \"require('fs').rmSync('dist', {recursive:true, force:true})\" && tsc",
     "test": "jest --coverage",
     "lint": "eslint src/",
     "format": "prettier --write src/ test/",
-    "format:check": "prettier --check src/ test/",
-    "build": "rimraf ./dist && tsc",
-    "start": "cross-env NODE_ENV=production PLATFORM=production node --enable-source-maps dist/server.js"
+    "format:check": "prettier --check src/ test/"
   },
   "keywords": [],
   "author": "",
@@ -36,7 +36,6 @@
     "jest": "^30.2.0",
     "pino-pretty": "^13.1.3",
     "prettier": "^3.8.1",
-    "rimraf": "^6.1.2",
     "ts-jest": "^29.4.6",
     "tsx": "^4.19.2",
     "typescript": "^5.9.3",
