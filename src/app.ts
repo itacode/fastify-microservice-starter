@@ -5,9 +5,6 @@ import { FastifyPluginAsync, FastifyError } from 'fastify';
 import multipart from '@fastify/multipart';
 import { join } from 'path';
 import apiRootRoutes from './api/root.routes';
-import { loadEnv } from './common/env';
-
-loadEnv();
 
 export type AppOptions = {
   // Place your custom options for app below here.
