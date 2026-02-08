@@ -9,6 +9,7 @@ It's a boilerplate to start developing a microservice with Fastify.
 - Multiple .env files
 - Node.js native watch
 - ESLint
+- Prettier
 - Jest
 - Docker configuration
 - Docker-compose configuration
@@ -49,7 +50,7 @@ npm install
 
 ## Development
 
-Start the development server with automatic reload
+Run the development server with automatic restart
 
 ```shell
 npm run dev
