@@ -10,30 +10,31 @@ export type AppOptions = {
   // Place your custom options for app below here.
 } & Partial<AutoloadPluginOptions>;
 
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 const app: FastifyPluginAsync<AppOptions> = async (
   fastify,
   opts,
 ): Promise<void> => {
   // Set basic security headers.
-  fastify.register(fastifyHelmet);
+  await fastify.register(fastifyHelmet);
 
-  fastify.register(fastifyCors);
+  await fastify.register(fastifyCors);
 
   // Register @fastify/multipart with attachFieldsToBody: true
   // This parses files and puts them in req.body
-  fastify.register(multipart, { attachFieldsToBody: true });
+  await fastify.register(multipart, { attachFieldsToBody: true });
 
   // This loads all plugins defined in plugins
-  // those should be support plugins that are reused
+  // These are support plugins that are reused
   // through your application
-  void fastify.register(autoLoad, {
+  await fastify.register(autoLoad, {
     dir: join(__dirname, 'plugins'),
     options: opts,
   });
 
   fastify.setErrorHandler((err: FastifyError, req, reply) => {
     const statusCode = err.statusCode || 500;
-    const isDevelopment = process.env.NODE_ENV === 'development';
 
     // Log 5xx errors as 'error' and 4xx as 'info' to reduce noise
     if (statusCode >= 500) {
@@ -55,7 +56,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
   });
 
   // API routes
-  fastify.register(apiRootRoutes);
+  await fastify.register(apiRootRoutes);
 };
 
 export default app;
