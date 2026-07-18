@@ -1,26 +1,22 @@
 import js from '@eslint/js';
-import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
-  { languageOptions: { globals: globals.node } },
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
-
-  // Custom Rules
+  globalIgnores(['dist/']),
   {
-    files: ['**/*.ts'],
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      eslintConfigPrettier,
+    ],
     rules: {
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_' },
       ],
-      '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
-
-  // Prettier config (must be last to override other formatting rules)
-  eslintConfigPrettier,
 ]);
