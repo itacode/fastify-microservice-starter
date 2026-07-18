@@ -1,14 +1,19 @@
 FROM node:24-slim
 
 WORKDIR /app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+
+RUN corepack enable \
+    && corepack prepare pnpm@latest --activate \
+    && pnpm install --frozen-lockfile
+
 COPY . .
 
-RUN npm install -g npm
-RUN npm ci
-RUN npm run build
+RUN pnpm build
 
 ENV APP_HOST=0.0.0.0
 
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+CMD [ "pnpm", "start" ]
