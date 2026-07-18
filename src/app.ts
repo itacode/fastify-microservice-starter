@@ -1,9 +1,10 @@
 import autoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
 import fastifyCors from '@fastify/cors';
 import fastifyHelmet from '@fastify/helmet';
-import { FastifyPluginAsync, FastifyError } from 'fastify';
 import multipart from '@fastify/multipart';
+import { FastifyError,FastifyPluginAsync } from 'fastify';
 import { join } from 'path';
+
 import apiRootRoutes from './api/root.routes';
 
 export type AppOptions = {

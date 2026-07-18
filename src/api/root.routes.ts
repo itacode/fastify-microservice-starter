@@ -1,4 +1,5 @@
 import { FastifyPluginAsync } from 'fastify';
+
 import healthRoutes from './health/health.routes';
 
 const root: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {

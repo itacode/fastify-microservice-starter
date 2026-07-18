@@ -1,7 +1,8 @@
 import js from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import eslintConfigPrettier from 'eslint-config-prettier';
 import { defineConfig, globalIgnores } from 'eslint/config';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig([
   globalIgnores(['dist/']),
@@ -12,11 +13,16 @@ export default defineConfig([
       tseslint.configs.recommended,
       eslintConfigPrettier,
     ],
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
     rules: {
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_' },
       ],
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
     },
   },
 ]);

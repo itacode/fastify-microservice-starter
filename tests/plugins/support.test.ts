@@ -1,4 +1,5 @@
 import Fastify from 'fastify';
+
 import Support from '../../src/plugins/support';
 
 test('support works standalone', async () => {

@@ -1,6 +1,7 @@
 import fastify from 'fastify';
-import { loadEnv } from './common/env';
+
 import { app as appService } from './app';
+import { loadEnv } from './common/env';
 
 // Load environment variables before app instantiation
 loadEnv();
